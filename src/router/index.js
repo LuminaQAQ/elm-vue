@@ -238,8 +238,8 @@ router.beforeEach((to, from, next) => {
   document.title = to.meta.title;
 
   if (to.meta.isAuth && !loginData) {
-    // next({ name: "Login" });
-    next();
+    next({ name: "Login" });
+    // next();
   } else {
     next();
   }

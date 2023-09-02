@@ -78,6 +78,9 @@ const Shop = {
         },
         commitThisShopCart(context, value) {
             context.commit('GetThisShopCart', value);
+        },
+        commitRemoveShopCart(context, value) {
+            context.commit('RemoveShopCart', value);
         }
     },
     mutations: {
@@ -1220,9 +1223,6 @@ const Shop = {
                                 flag = false;
                                 deepFlag = false;
                             }
-                            // else {
-                            //     console.log(item.shopCart, json.cart);
-                            // }
                         })
 
                         if (deepFlag) {
@@ -1230,10 +1230,6 @@ const Shop = {
                             flag = false;
                         }
                     }
-                    // else {
-                    //     item.shopCart.push(json.cart);
-                    //     flag = false;
-                    // }
                 })
 
                 if (flag) {
@@ -1282,6 +1278,16 @@ const Shop = {
                     state.orderShopCart = item.shopCart;
                 }
             })
+        },
+        RemoveShopCart(state, value) {
+            for (let i = 0, info; info = state.shopCart[i++];) {
+                if (info.shopId == value) {
+                    try { state.shopCart.splice(i - 1, 1); } catch { }
+
+                }
+            }
+
+            window.localStorage.setItem('ShopCart', JSON.stringify(state.shopCart));
         }
     },
 }

@@ -172,15 +172,17 @@ export default {
     ...mapGetters('Shop', ["GetOrderShopCart"]),
     ...mapGetters('Shop', ["GetDeliveryFee"]),
     ComputePrice() {
-      let sum = 0, format = 0;
+      try {
+        let sum = 0, format = 0;
 
-      this.cart.filter(item => {
-        sum += item.price;
-        format += item.price;
-      });
-      this.formatPrice = format *= 100
+        this.cart.filter(item => {
+          sum += item.price;
+          format += item.price;
+        });
+        this.formatPrice = format *= 100
 
-      return sum;
+        return sum;
+      } catch { }
     }
   },
   methods: {
