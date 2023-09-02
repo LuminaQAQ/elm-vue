@@ -1,6 +1,5 @@
 <style lang="scss" scoped>
 .main-body {
-  position: relative;
   padding: 3rem 0 4rem;
 
   height: calc(100% - 7rem);
@@ -116,7 +115,7 @@
           v-for="(item, index) in GetShopInfo"
           :key="index"
           :shopInfo="item"
-          :to="{name: 'Shop', query:{shopId: item.shopId} }"
+        :to="{name: 'Shop', query:{shopId: item.shopId} }"
         >
         </cm-sg-shop-info>
       </div>

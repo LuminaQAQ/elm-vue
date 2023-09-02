@@ -27,10 +27,10 @@
             <div class="filterBox">
                 <div class="filter">
                     <div class="spanBox" @click="sortdata">
-                        <span>{{ textData }}</span>
+                        <span style="width: 100px; display: block;">{{ textData }}</span>
                     </div>
                     <div class="allLx" @click="allType">
-                        <span>{{ textType }}</span>
+                        <span >{{ textType }}</span>
                     </div>
                     <div class="allLxs">
                         <span>历史红包</span>
@@ -105,11 +105,12 @@
                         </div>
                     </div>
                 </div>
+                <!-- <div></div> -->
+                <div class="konhgbai">
 
+                </div>
             </div>
-            <div class="konhgbai">
 
-            </div>
         </div>
 
     </div>
@@ -300,6 +301,7 @@ export default {
     width: 100%;
     height: 100%;
 
+
 }
 
 .heard {
@@ -346,7 +348,7 @@ export default {
 }
 
 .allLx {
-    margin-left: 3rem;
+    margin-left: 1rem;
 }
 
 .allLxs {
@@ -355,14 +357,15 @@ export default {
 
 .centerStyle {
     flex: 1 1 0%;
-    // overflow: scroll;
+    overflow: scroll;
     padding-left: 0.75rem;
     padding-right: 0.75rem;
     background: rgb(245, 245, 245);
     display: flex;
     flex-direction: column;
     overflow: auto;
-    height: 80vh;
+    height: 90vh;
+    // margin-bottom:10rem;
 }
 
 .itemBox {
@@ -562,6 +565,6 @@ export default {
 
 .konhgbai {
     width: 100%;
-    height: 100px;
+    padding:5rem 0rem 5rem 0rem;
 }
 </style>

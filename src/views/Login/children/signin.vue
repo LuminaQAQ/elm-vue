@@ -523,7 +523,7 @@ export default {
                                     userphone: this.$refs.userPhone.value,
                                     username: this.$refs.userName.value,
                                     userpass: this.$refs.userPassword.value,
-                                    userIsbool:false
+                                    userIsbool: false
                                 };
                                 // 将新的用户信息添加到数组中
                                 userinfoData.push(newUserInfo);
@@ -562,6 +562,10 @@ export default {
         }
 
 
+    },
+    beforeRouteLeave(to, from, next) {
+        this.$destroy(true);
+        next();
     },
 
 }

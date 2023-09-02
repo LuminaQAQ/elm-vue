@@ -353,7 +353,7 @@ export default {
     } else {
       
     }
-    // console.log(this.userinfo);
+    console.log(this.userinfo);
 
 
   },

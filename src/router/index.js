@@ -18,7 +18,6 @@ import BalanceQuery from "../views/My/children/children/BalanceQuery";
 import Points from "../views/My/children/Points";
 import PointsQuery from "../views/My/children/children/PointsQuery";
 import Coupon from "../views/My/children/Coupon.vue";
-import PointShop from '../views/My/children/PointShop'
 
 import Search from "../views/Search";
 
@@ -27,7 +26,6 @@ import ShopCart from "../views/ShopCart";
 import Login from "../views/Login";
 // 注册二级页面
 import Signin from "../views/Login/children/signin";
-
 // 订单页动画效果
 import Orderloading from "../components/common/Orderloading.vue";
 
@@ -38,7 +36,8 @@ import Friends from "../views/Message/children/friends";
 import Happily from "../views/My/children/happily.vue";
 // 会员卡页面
 import Vip from "../views/My/children/vip.vue";
-
+// 
+import Serve from "../views/My/children/serve.vue"
 Vue.use(VueRouter);
 
 const routes = [
@@ -166,14 +165,14 @@ const routes = [
       {
         path: "vip",
         name: "Vip",
-        meta: { title: "会员卡" },
+        meta: { title: "会员卡" ,isAuth: true },
         component: Vip,
       },
       {
-        path: "pointShop",
-        name: "PointShop",
-        meta: { title: "积分商城", isAuth: true },
-        component: PointShop,
+        path: "serve",
+        name: "Serve",
+        meta: { title: "服务中心" },
+        component: Serve,
       },
     ],
   },
@@ -225,7 +224,6 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes,
 });
-
 const originalPush = VueRouter.prototype.push;
 VueRouter.prototype.push = function push(location, onResolve, onReject) {
   if (onResolve || onReject)
@@ -239,7 +237,6 @@ router.beforeEach((to, from, next) => {
 
   if (to.meta.isAuth && !loginData) {
     next({ name: "Login" });
-    // next();
   } else {
     next();
   }

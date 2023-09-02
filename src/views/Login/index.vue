@@ -356,7 +356,8 @@ export default {
       }
 
       if (this.userphones.includes(this.$refs.userPhone.value) == true) {
-        
+
+
         Notify({ type: 'success', message: '登录成功' });
         // let isbool = true
         let loginzt = JSON.parse(localStorage.getItem("userinfoData"));
@@ -370,7 +371,7 @@ export default {
           this.$router.push("my")
         }
       } else {
-        console.log(this.userphones);
+      
         Dialog.alert({
           message: '手机号未注册',
         }).then(() => {
@@ -476,6 +477,18 @@ export default {
       this.$router.push("login/signin")
     }
   },
+  watch: {
+    $route(to, from) {
+      this.userinfo = JSON.parse(localStorage.getItem("userinfoData"))
+      if (this.userinfo == null) {
+
+      } else {
+        for (let i = 0; i < this.userinfo.length; i++) {
+          this.userphones.push(this.userinfo[i].userphone)
+        }
+      }
+    }
+  },
   mounted() {
     // 按钮颜色
     this.btncolor()
@@ -486,11 +499,13 @@ export default {
       for (let i = 0; i < this.userinfo.length; i++) {
         this.userphones.push(this.userinfo[i].userphone)
       }
-
-
-
     }
 
-  }
+
+  },
+  beforeRouteLeave(to, from, next) {
+    this.$destroy(true);
+    next();
+  },
 }
 </script>

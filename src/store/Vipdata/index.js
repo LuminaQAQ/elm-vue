@@ -73,6 +73,24 @@ const Vipdata = {
         cardmoney: 24,
         cardSum: 45,
       },
+      {
+        cardImg: "assets/images/Home/hamburger_icon.png",
+        cardstate: "配送减免专用",
+
+        cardName: "商品红包",
+        cardTime: "2023.09.03 23:59",
+        cardmoney: 24,
+        cardSum: 45,
+      },
+      {
+        cardImg: "assets/images/Home/hamburger_icon.png",
+        cardstate: "配送减免专用",
+
+        cardName: "商品红包",
+        cardTime: "2023.09.03 23:59",
+        cardmoney: 24,
+        cardSum: 45,
+      },
     ],
   },
   //   获取

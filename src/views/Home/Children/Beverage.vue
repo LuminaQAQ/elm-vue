@@ -2,20 +2,19 @@
 .main-body {
   padding: 3rem 0 0;
 
-  position: fixed;
+  position: absolute;
   z-index: 1099;
   top: 0;
   left: 0;
   width: 100%;
   height: calc(100% - 3rem);
-  -webkit-user-drag: none;
-  overflow: hidden !important;
 
-  background-color: rgb(246, 246, 246);
+  background-color: #f7f8fa;
+  overflow: hidden;
 }
 
 .shop-wrap {
-  height: 90vh;
+  height: calc(100% - 3rem);
   overflow: auto;
   position: relative;
 }

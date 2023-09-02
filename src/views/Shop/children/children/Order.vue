@@ -47,22 +47,13 @@
 </template>
 
 <script>
-import { mapActions, mapMutations } from 'vuex'
 import Header from '../../../../components/Header'
 
 export default {
   name: 'Message',
   components: { Header },
   methods: {
-    // ...mapActions('Shop', ['removeShopCart']),
-    // ...mapMutations('Shop', ['RemoveShopCart']),
-  },
-  computed: {
-  },
-  mounted() {
-    this.$store.commit('Shop/RemoveShopCart', this.$route.query.shopId);
 
-    // this.RemoveShopCart();
   }
 }
 </script>

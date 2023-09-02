@@ -43,7 +43,7 @@ export default new Vuex.Store({
       {
         imgSrc: require("../assets/images/Myself/shoping.png"),
         text: "积分商城",
-        router: { name: "PointShop" },
+        router: { name: "Vip" },
       },
       {
         imgSrc: require("../assets/images/Myself/vip.png"),
@@ -61,7 +61,7 @@ export default new Vuex.Store({
       {
         imgSrc: require("../assets/images/Myself/icon-fuwu.png"),
         text: "服务中心",
-        router: { name: "Happily" },
+        router: { name: "Serve" },
       },
       // {
       //   imgSrc: require("../assets/images/Myself/less.png"),
