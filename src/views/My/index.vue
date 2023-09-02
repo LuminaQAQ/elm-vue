@@ -204,16 +204,16 @@ p {
 
 <template>
   <div class="main-body">
-    <Header title="我的" ></Header>
-    <div class="mySelf" @click="gotologin">
+    <Header title="我的"></Header>
+    <div class="mySelf" v-for="(items, indexs) in userinfo" :key="indexs" @click="gotologin(items)">
       <div class="userImg">
         <img src="../../assets/images/Myself/my.png">
       </div>
       <div class="userLogin">
-        <p class="loginText">登录/注册</p>
+        <p class="loginText" ref="logintext">{{ items.username }}</p>
         <div class="userInfo">
           <img src="../../assets/images/Myself/phone.png">
-          <p class="userPhone">暂无绑定手机号</p>
+          <p class="userPhone" ref="loginphone">{{ items.userphone }}</p>
         </div>
       </div>
       <div class="rightImgBox">
@@ -239,25 +239,7 @@ p {
 
     <!-- 应用 -->
     <div class="userOrder">
-      <div  v-for="(item, index) in $store.state.order" :key="index">
-        <router-link :to="item.router" class="order">
-        <div class="leftImg">
-          <img :src="item.imgSrc" alt="">
-        </div>
-        <div class="orderText">
-          <span>{{ item.text }}</span>
-        </div>
-        <div class="orderRight">
-          <img src="../../assets/images/Myself/right1.png" alt="">
-        </div>
-        </router-link>
-      </div>
-    </div>
-    <!-- end -->
-
-    <!-- 服务 -->
-    <div class="service">
-      <div  v-for="(item, index) in $store.state.service" :key="index">
+      <div v-for="(item, index) in $store.state.order" :key="index">
         <router-link :to="item.router" class="order">
           <div class="leftImg">
             <img :src="item.imgSrc" alt="">
@@ -269,6 +251,38 @@ p {
             <img src="../../assets/images/Myself/right1.png" alt="">
           </div>
         </router-link>
+        <!-- 退出 -->
+
+      </div>
+
+    </div>
+    <!-- end -->
+
+    <!-- 服务 -->
+    <div class="service">
+      <div v-for="(item, index) in $store.state.service" :key="index">
+        <router-link :to="item.router" class="order">
+          <div class="leftImg">
+            <img :src="item.imgSrc" alt="">
+          </div>
+          <div class="orderText">
+            <span>{{ item.text }}</span>
+          </div>
+          <div class="orderRight">
+            <img src="../../assets/images/Myself/right1.png" alt="">
+          </div>
+        </router-link>
+      </div>
+      <div class="order" @click="gotoout" v-show="isbool">
+        <div class="leftImg">
+          <img src="../../assets/images/Myself/less.png" alt="">
+        </div>
+        <div class="orderText">
+          <span>退出</span>
+        </div>
+        <div class="orderRight">
+          <img src="../../assets/images/Myself/right1.png" alt="">
+        </div>
       </div>
     </div>
 
@@ -282,15 +296,72 @@ p {
 
 <script>
 import Header from '../../components/Header'
+import { Dialog } from 'vant';
+import { Notify } from 'vant';
 
 export default {
   name: 'My',
   components: { Header },
-  methods: {
-    gotologin() {
-      this.$router.push("login");
+  data() {
+    return {
+      userinfo: [],
+      isbool: true
     }
   },
+  methods: {
+    gotologin(info) {
+      if (info.userIsbool != true) {
+        this.$router.push("login")
+      } else {
+
+      }
+
+    },
+    gotoout() {
+
+
+
+      Dialog.confirm({
+        title: '提示',
+        message: '是否退出?',
+      }).then(() => {
+        localStorage.removeItem("loginSuccess");
+        // const clearData = [];
+        // this.userinfo = clearData
+        this.$router.push("login")
+      }).catch(() => {
+
+      });
+
+      // console.log(elem.router);
+    }
+  },
+  mounted() {
+    let datas = JSON.parse(localStorage.getItem("loginSuccess"))
+
+    if (datas == null) {
+      let itemData = {
+        username: "登录/注册",
+        userphone: "未绑定手机"
+      }
+      this.userinfo.push(itemData)
+    } else {
+      this.userinfo.push(datas)
+    }
+    if (localStorage.getItem("loginSuccess") == null) {
+      this.isbool = false
+    } else {
+      
+    }
+    console.log(this.userinfo);
+
+
+  },
+  beforeRouteLeave(to, from, next) {
+    this.$destroy(true);
+    next();
+  },
+
 }
 </script>
 

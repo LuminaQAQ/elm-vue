@@ -3,13 +3,13 @@ import VueRouter from "vue-router";
 
 // 首页
 import Home from "../views/Home";
-import Beverage from '../views/Home/Children/Beverage'
-import NotFound from '../components/common/NotFound'
+import Beverage from "../views/Home/Children/Beverage";
+import NotFound from "../components/common/NotFound";
 
 // 商店
-import Shop from '../views/Shop'
-import ConfirmOrder from '../views/Shop/children/Confirm'
-import SuccessOrder from '../views/Shop/children/children/Order'
+import Shop from "../views/Shop";
+import ConfirmOrder from "../views/Shop/children/Confirm";
+import SuccessOrder from "../views/Shop/children/children/Order";
 
 // 我的
 import My from "../views/My";
@@ -18,6 +18,7 @@ import BalanceQuery from "../views/My/children/children/BalanceQuery";
 import Points from "../views/My/children/Points";
 import PointsQuery from "../views/My/children/children/PointsQuery";
 import Coupon from "../views/My/children/Coupon.vue";
+import PointShop from '../views/My/children/PointShop'
 
 import Search from "../views/Search";
 
@@ -26,6 +27,7 @@ import ShopCart from "../views/ShopCart";
 import Login from "../views/Login";
 // 注册二级页面
 import Signin from "../views/Login/children/signin";
+
 // 订单页动画效果
 import Orderloading from "../components/common/Orderloading.vue";
 
@@ -111,7 +113,7 @@ const routes = [
   {
     path: "/shopcart",
     name: "ShopCart",
-    meta: { title: "订单" },
+    meta: { title: "订单", isAuth: true },
     component: ShopCart,
   },
 
@@ -167,6 +169,12 @@ const routes = [
         meta: { title: "会员卡" },
         component: Vip,
       },
+      {
+        path: "pointShop",
+        name: "PointShop",
+        meta: { title: "积分商城", isAuth: true },
+        component: PointShop,
+      },
     ],
   },
 
@@ -218,10 +226,23 @@ const router = new VueRouter({
   routes,
 });
 
+const originalPush = VueRouter.prototype.push;
+VueRouter.prototype.push = function push(location, onResolve, onReject) {
+  if (onResolve || onReject)
+    return originalPush.call(this, location, onResolve, onReject);
+  return originalPush.call(this, location).catch((err) => err);
+};
+
 router.beforeEach((to, from, next) => {
+  const loginData = window.localStorage.getItem("loginSuccess");
   document.title = to.meta.title;
 
-  next();
+  if (to.meta.isAuth && !loginData) {
+    // next({ name: "Login" });
+    next();
+  } else {
+    next();
+  }
 });
 
 export default router;

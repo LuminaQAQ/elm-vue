@@ -307,6 +307,11 @@ export default {
             // 
             singinBool: false,
             showFooter: true,
+            userInfo: [
+
+            ],
+            userphoneData: [],
+            usernameData: []
         }
     },
     methods: {
@@ -483,8 +488,52 @@ export default {
                                 // on close
                             });
                             return false;
-                        } else {
-                            alert("success")
+                        }
+                        else {
+                            // 判断是否存在
+                            let boolStr = this.userphoneData.includes(this.$refs.userPhone.value)
+                            let boolStrone = this.usernameData.includes(this.$refs.userName.value)
+
+                            if (boolStr == true) {
+                                Dialog.alert({
+                                    message: '手机号已经被注册!',
+                                }).then(() => {
+                                    // on close
+                                });
+                                return false;
+                            }
+                            if (boolStrone == true) {
+                                Dialog.alert({
+                                    message: '用户名已经被注册!',
+                                }).then(() => {
+                                    // on close
+                                });
+                                return false;
+
+                            }
+                            else {
+                                let storedData = localStorage.getItem("userinfoData");
+                                let userinfoData = [];
+                                // 如果已有数据存在，则解析为数组形式；否则，创建一个空数组
+                                if (storedData) {
+                                    userinfoData = JSON.parse(storedData);
+                                }
+                                // 创建新的用户信息对象
+                                let newUserInfo = {
+                                    userphone: this.$refs.userPhone.value,
+                                    username: this.$refs.userName.value,
+                                    userpass: this.$refs.userPassword.value,
+                                    userIsbool:false
+                                };
+                                // 将新的用户信息添加到数组中
+                                userinfoData.push(newUserInfo);
+                                // 将整个数组重新存储回 localStorage
+                                localStorage.setItem("userinfoData", JSON.stringify(userinfoData));
+                                Notify({ type: 'success', message: '注册成功' });
+                                setTimeout(() => {
+                                    this.$router.back()
+                                }, 2000)
+                            }
                         }
                     }
                 }
@@ -500,6 +549,18 @@ export default {
         }
     },
     mounted() {
+        // 页面加载后直接获取
+        let userdatazonghe = JSON.parse(localStorage.getItem("userinfoData"))
+        this.userInfo = userdatazonghe
+        if (this.userInfo == null) {
+
+        } else {
+            for (let i = 0; i < this.userInfo.length; i++) {
+                this.userphoneData.push(this.userInfo[i].userphone)
+                this.usernameData.push(this.userInfo[i].username)
+            }
+        }
+
 
     },
 

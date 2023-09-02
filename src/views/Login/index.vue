@@ -315,13 +315,18 @@ export default {
       color: "#7fd2ff",
       border: "#7fd2ff",
       trueAndFalse: false,
-      background: "#02b6fd"
+      background: "#02b6fd",
+      userinfo: [
+
+      ],
+      userphones: []
+
     }
   },
   methods: {
     // 登录
     login() {
-
+      let that = this
       const loginRes = /^(?:(?:\+|00)86)?1[3-9]\d{9}$/;
       if (!loginRes.test(this.$refs.userPhone.value)) {
         Dialog.alert({
@@ -340,6 +345,7 @@ export default {
         });
         return false;
       }
+
       if (this.trueAndFalse == false) {
         Dialog.alert({
           message: '协议未勾选！',
@@ -347,9 +353,32 @@ export default {
           // on close
         });
         return false;
-      } else {
-
       }
+
+      if (this.userphones.includes(this.$refs.userPhone.value) == true) {
+        
+        Notify({ type: 'success', message: '登录成功' });
+        // let isbool = true
+        let loginzt = JSON.parse(localStorage.getItem("userinfoData"));
+        let targetUser = loginzt.find(function (ele) {
+          return ele.userphone == that.$refs.userPhone.value;
+        });
+        if (targetUser) {
+          targetUser.userIsbool = true; // 修改 userIsbool 属性为 true
+          console.log(targetUser);
+          localStorage.setItem("loginSuccess", JSON.stringify(targetUser))
+          this.$router.push("my")
+        }
+      } else {
+        console.log(this.userphones);
+        Dialog.alert({
+          message: '手机号未注册',
+        }).then(() => {
+          // on close
+        });
+        return false;
+      }
+
 
     },
     // 手机号
@@ -450,6 +479,18 @@ export default {
   mounted() {
     // 按钮颜色
     this.btncolor()
+    this.userinfo = JSON.parse(localStorage.getItem("userinfoData"))
+    if (this.userinfo == null) {
+
+    } else {
+      for (let i = 0; i < this.userinfo.length; i++) {
+        this.userphones.push(this.userinfo[i].userphone)
+      }
+
+
+
+    }
+
   }
 }
 </script>

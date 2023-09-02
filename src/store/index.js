@@ -4,6 +4,7 @@ import Home from "./Home";
 import Shop from "./Shop";
 import Order from "./Order";
 import Storts from "./Storts";
+import Vipdata from "./Vipdata"
 
 Vue.use(Vuex);
 
@@ -42,7 +43,7 @@ export default new Vuex.Store({
       {
         imgSrc: require("../assets/images/Myself/shoping.png"),
         text: "积分商城",
-        router: { name: "Vip" },
+        router: { name: "PointShop" },
       },
       {
         imgSrc: require("../assets/images/Myself/vip.png"),
@@ -62,11 +63,11 @@ export default new Vuex.Store({
         text: "服务中心",
         router: { name: "Happily" },
       },
-      {
-        imgSrc: require("../assets/images/Myself/less.png"),
-        text: "退出登录",
-        router: { name: "Happily" },
-      },
+      // {
+      //   imgSrc: require("../assets/images/Myself/less.png"),
+      //   text: "退出登录",
+      //   router: { name: "Happily" },
+      // },
     ],
   },
   modules: {
@@ -74,5 +75,6 @@ export default new Vuex.Store({
     Shop,
     Order,
     Storts,
+    Vipdata,
   },
 });
